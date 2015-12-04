@@ -36,7 +36,7 @@ class CustomJSONEncoder(JSONEncoder):
 
 app.json_encoder = CustomJSONEncoder
 
-if not app.debug:
+if not app.debug and MAIL_SERVER != '':
     import logging
     from logging.handlers import SMTPHandler
     credentials = None
@@ -48,7 +48,7 @@ if not app.debug:
     mail_handler.setLevel(logging.ERROR)
     app.logger.addHandler(mail_handler)
 
-if not app.debug:
+if not app.debug and os.environ.get('HEROKU') is None:
     import logging
     from logging.handlers import RotatingFileHandler
     file_handler = RotatingFileHandler('tmp/microblog.log', 'a',
@@ -56,16 +56,6 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(logging.Formatter(
         '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
-    app.logger.addHandler(file_handler)
-    app.logger.setLevel(logging.INFO)
-    app.logger.info('microblog startup')
-
-if not app.debug and os.environ.get('HEROKU') is None:
-    import logging
-    from logging.handlers import RotatingFileHandler
-    file_handler = RotatingFileHandler('tmp/microblog.log', 'a', 1 * 1024 * 1024, 10)
-    file_handler.setLevel(logging.INFO)
-    file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
     app.logger.addHandler(file_handler)
     app.logger.setLevel(logging.INFO)
     app.logger.info('microblog startup')
