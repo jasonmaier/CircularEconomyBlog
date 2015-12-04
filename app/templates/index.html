@@ -1,0 +1,45 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ _('A Techno Economic Analysis of the Circular Economy') }}</h1>
+<div class="well">
+  <h2>{{ _('Project Description: ')  }}</h2>
+  <h5>{{ _('For the first time in human history, our world has become a consumable resource. In the last one hundred years, the world population has increased by over five billion people, global per capita energy consumption has grown to an all-time high, and global material consumption has grown by a factor of eight. (United States Census Bureau, The World Bank – Energy Use, and Kraussman) During this time our global economy has seen unprecedented gains. This trend will not persist, however, as long as economic growth continues to be coupled to resource consumption. (Roser) Resource reserves on earth are finite, and as we approach their limits so do we approach the limits to growth of our current economic model. 
+For a sustainable future, a reimagined economic system is required. A circular economy is a model in which economic growth is decoupled from finite resource consumption. (MacArthur, 2013) This manifests as a system where raw material inputs and waste are minimized by reuse, remanufacturing, and recycling of all materials and products. Our global infrastructure prevents this transition from happening at once. In fact, each system requires different means by which to initiate such a transition.  The goal of this project, a techno-economic analysis of the circular economy, is to quantitatively evaluate the economic, environmental, and social impacts of three ad hoc methods aimed to increase the circularity of a specific industry; ultimately, this methodology will be generalized to allow for consideration of other industries. This project will result in a detailed report outlining these recommendations, a methodology for assessing circularity from a social, political, environmental, and economic lens, and a website designed to openly and effectively disseminate these crucial ideas to the public.  ')  }}</h5>
+</div>
+{% include 'flash.html' %}
+<div class="well">
+   <form class="form-horizontal" action="" method="post" name="post">
+      {{ form.hidden_tag() }}
+      <div class="control-group{% if form.post.errors %} error{% endif %}">
+         <label class="control-label" for="post">{{ _('comment:') }}</label>
+         <div class="controls">
+            {{ form.post(size=30, maxlength=140) }}
+            {% for error in form.post.errors %}
+            <span class="help-inline">[{{ error }}]</span><br>
+            {% endfor %}
+         </div>
+      </div>
+      <div class="control-group">
+         <div class="controls">
+            <input class="btn btn-primary" type="submit" value="{{ _('Post!') }}">
+         </div>
+      </div>
+   </form>
+</div>
+{% for post in posts.items%}
+{% include 'post.html' %}
+{% endfor %}
+<ul class="pager">
+   {% if posts.has_prev %}
+   <li class="previous"><a href="{{ url_for('index', page=posts.prev_num) }}">{{ _('Newer posts') }}</a></li>
+   {% else %}
+   <li class="previous disabled"><a href="#">{{ _('Newer posts') }}</a></li>
+   {% endif %}
+   {% if posts.has_next %}
+   <li class="next"><a href="{{ url_for('index', page=posts.next_num) }}">{{ _('Older posts') }}</a></li>
+   {% else %}
+   <li class="next disabled"><a href="#">{{ _('Older posts') }}</a></li>
+   {% endif %}
+</ul>
+{% endblock %}

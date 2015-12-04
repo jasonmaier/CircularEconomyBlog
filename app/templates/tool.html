@@ -1,0 +1,28 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+{% block content %}
+<h1>The Tool will be here</h1>
+<div class="well">
+  <a href="http://www.ellenmacarthurfoundation.org/assets/downloads/insight/Circularity-Indicators_Methodology_May2015.pdf ">Here is the link for the Methodology</a>
+</div>
+{% include 'flash.html' %}
+<div class="well">
+   <div class="form-group">
+      {{ form.hidden_tag() }}
+  <label for="company">Company:</label>
+  <input type="text" class="form-control" id="company">
+</div>
+<div class="form-group">
+  <label for="product">Product Type:</label>
+  <input type="product" class="form-control" id="product">
+  <div class="form-group">
+  <label for="mass">Mass:</label>
+  <input type="text" class="form-control" id="mass">
+</div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% from 'common.html' import edit_field %}
+{%  block content %}
+{% include 'flash.html' %}
+<div class='edit well offset 2 span8'>
+    <form method='post' class="form-horizontal">
+        {{ form.hidden_tag() }}
+        <legend> Calculate Materials Circularity Indicator </legend>
+        <div class="well">
+  <a href="http://www.ellenmacarthurfoundation.org/assets/downloads/insight/Circularity-Indicators_Methodology_May2015.pdf ">Here is the link for the Methodology defined by the Ellen MacArthur</a>
+</div>
+        {{ edit_field(form.product, rows="1" ,class="span3", placeholder="product type" ) }}
+        {{ edit_field(form.industry, rows="1" ,class="span3", placeholder="industry" ) }}
+        {{ edit_field(form.task, rows="5" ,class="span3", placeholder="description of product" ) }}
+        {{ edit_field(form.Mass, rows="1" ,class="span3", placeholder="weight in Kg" ) }}
+        {{ edit_field(form.Fr, rows="1" ,class="span4", placeholder="Fraction Feedstock from Recycled Sources" ) }}
+        {{ edit_field(form.Fu, rows="1" ,class="span4", placeholder="Fraction Feedstock from Recycled Sources" ) }}
+        {{ edit_field(form.Cr, rows="1" ,class="span4", placeholder="Fraction of Product Mass Collected for Recycle" ) }}
+        {{ edit_field(form.Cu, rows="1" ,class="span4", placeholder="Fraction of Product Mass Collected for Reuse" ) }}
+        {{ edit_field(form.Ec, rows="1" ,class="span3", placeholder="Efficiency of Product Recycling" ) }}
+        {{ edit_field(form.Ef, rows="1" ,class="span3", placeholder="Efficiency of Feedstock Recycling" ) }}
+        {{ edit_field(form.L, rows="1" ,class="span3", placeholder="Length of Use" ) }}
+        {{ edit_field(form.Lav, rows="1" ,class="span3", placeholder="Industry Average Length of Use" ) }}
+        {{ edit_field(form.U, rows="1" ,class="span3", placeholder="Intensity of Use" ) }}
+        {{ edit_field(form.Uav, rows="1" ,class="span3", placeholder="Industry Average Intensity of Use" ) }}
+
+        <div class="control-group">
+         <div class="controls">
+            <input class="btn btn-primary" type="submit" value="{{ _('Submit') }}">
+         </div>
+      </div>
+    </form>
+</div>
+{% for task in tasks%}
+{% include 'table.html' %}
+{% endfor %}
+{%  endblock    %}
